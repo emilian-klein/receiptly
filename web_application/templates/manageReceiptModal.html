@@ -1,0 +1,55 @@
+<form method="POST" id="manage-receipt-form" autocomplete="off" class="needs-validation" novalidate>
+    {% csrf_token %}
+    <div id="manage-receipt-modal" class="modal fade" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-2">
+                        <div class="col">
+                            <label for="receipt-name" class="form-label form-label-sm">Name</label>
+                            <input type="text" id="receipt-name" class="form-control form-control-sm" name="name" required maxlength="25">
+                            <div class="invalid-feedback">Receipt name can't be empty.</div>
+                        </div>
+                        <div class="col">
+                            <label for="receipt-date" class="form-label form-label-sm">Date</label>
+                            <input type="date" id="receipt-date" class="form-control form-control-sm" name="date" required>
+                            <div class="invalid-feedback">Receipt date can't be empty.</div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row mb-2 d-flex align-items-center">
+                        <div class="col-4 form-label-sm">
+                            Item name
+                        </div>
+                        <div class="col-3 form-label-sm">
+                            Item price
+                        </div>
+                        <div class="col-4 form-label-sm">
+                            Item category
+                        </div>
+                        <div class="col-1 d-flex">
+                            <button type="button" class="btn btn-sm btn-outline-success ms-auto add-receipt-item-button">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="receipt-items">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark me-1"></i>Close
+                    </button>
+                    <button type="submit" class="btn btn-sm btn-success">
+                        <i class="fa-solid fa-floppy-disk me-1"></i>Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% include "receiptItem.html" %}

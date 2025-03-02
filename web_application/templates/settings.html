@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+    <form>
+        <div class="d-flex align-items-center mb-2">
+            <h4 class="my-0">Settings</h4>
+            <button type="submit" class="btn btn-sm btn-success ms-auto save-settings-button">
+                <i class="fa-solid fa-floppy-disk me-1"></i>Save
+            </button>
+        </div>
+        <div class="input-group mb-3 w-25">
+            <label class="input-group-text w-35" for="currency">Currency</label>
+            <select class="form-select" id="currency">
+                <option value="PLN">PLN</option>
+                <option value="USD">USD</option>
+                <option value="GPB">GPB</option>
+                <option value="EUR">EUR</option>
+            </select>
+        </div>
+        <div class="input-group mb-3 w-25">
+            <label class="input-group-text w-35" for="appearance">Appearance</label>
+            <select class="form-select" id="appearance">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+            </select>
+        </div>
+    </form>
+{% endblock %}

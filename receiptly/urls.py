@@ -21,5 +21,18 @@ from web_application import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home')
+    path('expense-report/', views.expense_report, name='expense_report'),
+    path('receipts/', views.receipts, name='receipts'),
+    path('add-receipt/', views.add_receipt, name="add_receipt"),
+    path('edit-receipt/<int:receipt_id>/', views.edit_receipt, name='edit_receipt'),
+    path('delete-receipt/<int:receipt_id>/', views.delete_receipt, name="delete_receipt"),
+    path('api/receipts/', views.receipts_list, name='receipts_list'),
+    path('api/receipts/<int:receipt_id>/', views.receipt_details, name='receipt_details'),
+    path('categories/', views.categories, name='categories'),
+    path('add-category/', views.add_category, name="add_category"),
+    path('edit-category/<int:category_id>/', views.edit_category, name='edit_category'),
+    path('delete-category/<int:category_id>/', views.delete_category, name='delete_category'),
+    path('api/categories/', views.categories_list, name='categories_list'),
+    path('api/categories/<int:category_id>/', views.category_details, name='category_details'),
+    path('settings/', views.settings, name='settings'),
 ]

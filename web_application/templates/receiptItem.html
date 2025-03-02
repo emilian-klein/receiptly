@@ -1,0 +1,25 @@
+<template id="receipt-item">
+    <div class="row mb-2">
+        <div class="col-4">
+            <input type="text" class="form-control form-control-sm" name="receipt-items-name[]" required maxlength="25">
+            <div class="invalid-feedback">Item name can't be empty.</div>
+        </div>
+        <div class="col-3">
+            <input type="text" class="form-control form-control-sm" name="receipt-items-price[]" required pattern="^\d{1,8}(\.\d{1,2})?$">
+            <div class="invalid-feedback">Invalid price format.</div>
+        </div>
+        <div class="col-4">
+            <select class="form-select form-select-sm" name="receipt-items-category[]">
+                <option selected value="">N/A</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-1 d-flex align-items-start">
+            <button type="button" class="btn btn-sm btn-outline-danger ms-auto delete-receipt-item-button">
+                <i class="fa-solid fa-trash-can"></i>
+            </button>
+        </div>
+    </div>
+</template>

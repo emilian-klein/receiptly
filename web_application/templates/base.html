@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Receiptly - {% block title %}{% endblock %}</title>
+        <link rel="icon" href="{% static 'media/logo.png' %}" type="image/png">
+        <link rel="stylesheet" href="{% static 'css/libs/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body>
+        <div class="container">
+            <div class="d-flex align-items-center my-2">
+                <img src="{% static 'media/logo.png' %}" alt="Receiptly logo" width="35" height="35">
+                <h3 class="ms-2 mb-0 text-dark">Receiptly</h3>
+                <nav class="d-flex gap-4 ms-auto">
+                    <a class="nav-link {% if request.path == '/receipts/' %}fw-bold{% endif %}" href="{% url 'receipts' %}">Receipts</a>
+                    <a class="nav-link {% if request.path == '/categories/' %}fw-bold{% endif %}" href="{% url 'categories' %}">Categories</a>
+                    <a class="nav-link {% if request.path == '/expense-report/' %}fw-bold{% endif %}" href="{% url 'expense_report' %}">Expense report</a>
+                    <a class="nav-link {% if request.path == '/settings/' %}fw-bold{% endif %}" href="{% url 'settings' %}">Settings</a>
+                </nav>
+            </div>
+            <hr>
+            {% block content %}
+            {% endblock %}
+        </div>
+        <script src="{% static 'js/libs/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'js/common.js' %}"></script>
+        {% block js %}
+        {% endblock %}
+    </body>
+</html>
+
+

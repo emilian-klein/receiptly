@@ -1,0 +1,26 @@
+<form method="POST" id="manage-category-form" autocomplete="off" class="needs-validation" novalidate>
+    {% csrf_token %}
+    <div id="manage-category-modal" class="modal fade" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="category-name" class="form-label form-label-sm">Name</label>
+                    <input type="text" id="category-name" class="form-control form-control-sm" name="name" required maxlength="25">
+                    <div class="invalid-feedback">Category name can't be empty.</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark me-1"></i>Close
+                    </button>
+                    <button type="submit" class="btn btn-sm btn-success">
+                        <i class="fa-solid fa-floppy-disk me-1"></i>Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

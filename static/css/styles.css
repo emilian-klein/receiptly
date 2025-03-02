@@ -1,0 +1,23 @@
+body {
+    background-color: #f0f0f0;
+}
+
+.form-label-sm {
+    font-size: 0.875rem;
+}
+
+.w-35 {
+    width:35%; !important
+}
+
+.btn-danger-hover:hover {
+    color: white;
+    border-color: var(--bs-danger);
+    background-color: var(--bs-danger);
+}
+
+.btn-primary-hover:hover {
+    color: white;
+    border-color: var(--bs-primary);
+    background-color: var(--bs-primary);
+}

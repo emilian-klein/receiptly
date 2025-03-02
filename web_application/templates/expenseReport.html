@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Expense report{% endblock %}
+{% block content %}
+    <div class="d-flex align-items-center mb-2">
+        <h4 class="my-0">Expense report</h4>
+        <div class="ms-auto w-50">
+            <form method="GET" action="{% url 'expense_report' %}" id="expense-report-time-range-form" autocomplete="off" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-white">Time range</span>
+                    <input type="date" id="expense-report-start-date" name="start-date" class="form-control" required>
+                    <span class="input-group-text bg-white"><i class="fa-solid fa-arrow-right"></i></span>
+                    <input type="date" id="expense-report-end-date" name="end-date" class="form-control" required>
+                    <button type="submit" class="btn btn-sm btn-success">
+                        <i class="fa-solid fa-file-lines me-1"></i>Generate
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% if expenses %}
+        <div class="card mx-auto w-50">
+            <h6 class="card-header d-flex align-items-center">
+                Report summary <span class="ms-auto text-secondary">{{ start_date }} - {{ end_date }}</span>
+            </h6>
+            <div class="card-body">
+                <ul>
+                    {% for category, amount in expenses.items %}
+                        <li>{{ category }}: <span class="fw-bold">{{ amount }} PLN</span></li>
+                    {% endfor %}
+                </ul>
+                <button type="submit" class="btn btn-sm btn-outline-secondary btn-primary-hover">
+                    <i class="fa-solid fa-file-csv me-1"></i>Export to CSV
+                </button>
+                <button type="submit" class="btn btn-sm btn-outline-secondary btn-primary-hover">
+                    <i class="fa-solid fa-file-pdf me-1"></i>Export to PDF
+                </button>
+            </div>
+        </div>
+    {% else %}
+        <div class="mt-5">
+            <div class="text-center text-secondary mb-2"><i class="fa-solid fa-file-lines fa-3x"></i></div>
+            <h5 class="text-center">Expense report is currently empty. Try generating a new one!</h5>
+        </div>
+    {% endif %}
+    {% if messages %}
+        <div class="position-fixed bottom-0 end-0 p-3">
+            {% for message in messages %}
+                <div id="expense-report-toast" class="toast align-items-center text-bg-success border-0" role="alert">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            <i class="fa-solid fa-check me-1"></i>{{ message }}
+                        </div>
+                        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"></button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
+{% block js %}
+    <script src="{% static 'js/expense-report.js' %}"></script>
+{% endblock %}
