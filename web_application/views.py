@@ -1,20 +1,44 @@
 from datetime import datetime
 
-from django.db.models import Sum
-from django.shortcuts import render
-from django.shortcuts import redirect
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
+from django.shortcuts import render, redirect
+
+from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status
 
-from .serializers import CategorySerializer
-from .serializers import ReceiptSerializer
-from .models import Item
-from .models import Receipt
-from .models import Category
+from .models import Category, Item, Receipt
+from .serializers import CategorySerializer, ReceiptSerializer
 
 
+def login_page(request):
+    if request.user.is_authenticated:
+        return redirect('receipts')
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'Logged in successfully!')
+            return redirect('receipts')
+        else:
+            messages.error(request, 'Invalid username or password!')
+            return render(request, 'loginPage.html')
+    return render(request, 'loginPage.html')
+
+
+@login_required
+def logout(request):
+    logout(request)
+    messages.success(request, 'Logged out successfully!')
+    return redirect('login_page')
+
+
+@login_required
 def receipts(request):
     all_receipts = Receipt.objects.all()
     all_categories = Category.objects.all()
@@ -25,6 +49,7 @@ def receipts(request):
     return render(request, 'receipts.html', context)
 
 
+@login_required
 def add_receipt(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -44,6 +69,7 @@ def add_receipt(request):
     return redirect('receipts')
 
 
+@login_required
 def edit_receipt(request, receipt_id):
     receipt = Receipt.objects.get(pk=receipt_id)
     if request.method == 'POST':
@@ -69,6 +95,7 @@ def edit_receipt(request, receipt_id):
     return redirect('receipts')
 
 
+@login_required
 def delete_receipt(request, receipt_id):
     receipt = Receipt.objects.get(pk=receipt_id)
     if request.method == 'POST':
@@ -77,6 +104,7 @@ def delete_receipt(request, receipt_id):
     return redirect('receipts')
 
 
+@login_required
 @api_view(['GET'])
 def receipts_list(request):
     all_receipts = Receipt.objects.all()
@@ -84,6 +112,7 @@ def receipts_list(request):
     return Response(serializer.data)
 
 
+@login_required
 @api_view(['GET'])
 def receipt_details(request, receipt_id):
     try:
@@ -94,11 +123,13 @@ def receipt_details(request, receipt_id):
     return Response(serializer.data)
 
 
+@login_required
 def categories(request):
     all_categories = Category.objects.all()
     return render(request, 'categories.html', {'categories': all_categories})
 
 
+@login_required
 def add_category(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -108,6 +139,7 @@ def add_category(request):
     return redirect('categories')
 
 
+@login_required
 def edit_category(request, category_id):
     category = Category.objects.get(pk=category_id)
     if request.method == 'POST':
@@ -119,6 +151,7 @@ def edit_category(request, category_id):
     return redirect('categories')
 
 
+@login_required
 def delete_category(request, category_id):
     category = Category.objects.get(pk=category_id)
     if request.method == 'POST':
@@ -127,6 +160,7 @@ def delete_category(request, category_id):
     return redirect('categories')
 
 
+@login_required
 @api_view(['GET'])
 def categories_list(request):
     all_categories = Category.objects.all()
@@ -134,6 +168,7 @@ def categories_list(request):
     return Response(serializer.data)
 
 
+@login_required
 @api_view(['GET'])
 def category_details(request, category_id):
     try:
@@ -144,6 +179,7 @@ def category_details(request, category_id):
     return Response(serializer.data)
 
 
+@login_required
 def expense_report(request):
     start_date = request.GET.get('start-date')
     end_date = request.GET.get('end-date')
@@ -166,5 +202,6 @@ def expense_report(request):
     return render(request, 'expenseReport.html', context)
 
 
+@login_required
 def settings(request):
     return render(request, 'settings.html')

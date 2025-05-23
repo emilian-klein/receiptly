@@ -21,7 +21,8 @@ from web_application import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('expense-report/', views.expense_report, name='expense_report'),
+    path('', views.login_page, name='login_page'),
+    path('logout/', views.logout, name='logout'),
     path('receipts/', views.receipts, name='receipts'),
     path('add-receipt/', views.add_receipt, name="add_receipt"),
     path('edit-receipt/<int:receipt_id>/', views.edit_receipt, name='edit_receipt'),
@@ -34,5 +35,6 @@ urlpatterns = [
     path('delete-category/<int:category_id>/', views.delete_category, name='delete_category'),
     path('api/categories/', views.categories_list, name='categories_list'),
     path('api/categories/<int:category_id>/', views.category_details, name='category_details'),
+    path('expense-report/', views.expense_report, name='expense_report'),
     path('settings/', views.settings, name='settings'),
 ]
