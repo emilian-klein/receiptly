@@ -21,3 +21,7 @@ body {
     border-color: var(--bs-primary);
     background-color: var(--bs-primary);
 }
+
+.max-w-300-px {
+    max-width: 300px;
+}

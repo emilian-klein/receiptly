@@ -31,7 +31,7 @@ class Receipt(models.Model):
 
     def total_amount(self):
         total_amount = self.items.aggregate(total_amount=Sum('price'))['total_amount'] or 0
-        return f"{total_amount:.2f}"
+        return f'{total_amount:.2f}'
 
     def __str__(self):
         return self.name
