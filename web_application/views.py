@@ -32,7 +32,7 @@ def login_page(request):
 
 
 @login_required
-def logout(request):
+def logout_action(request):
     logout(request)
     messages.success(request, 'Logged out successfully!')
     return redirect('login_page')

@@ -22,7 +22,7 @@ from web_application import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.login_page, name='login_page'),
-    path('logout/', views.logout, name='logout'),
+    path('logout/', views.logout_action, name='logout'),
     path('receipts/', views.receipts, name='receipts'),
     path('add-receipt/', views.add_receipt, name="add_receipt"),
     path('edit-receipt/<int:receipt_id>/', views.edit_receipt, name='edit_receipt'),
